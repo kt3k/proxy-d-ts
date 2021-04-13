@@ -7,7 +7,11 @@ serve({
     new Response(
       `
       serving lib.deno.d.ts<br />
-      visit <a href="/builtin/${EXAMPLE_VERSION}">/builtin/${EXAMPLE_VERSION}</a> for example
+      visit
+        <a href="/builtin/stable">/builtin/stable</a>,
+        <a href="/builtin/${EXAMPLE_VERSION}">/builtin/${EXAMPLE_VERSION}</a>, for example<br />
+      <br />
+      <a href="https://github.com/kt3k/proxy-d-ts">GitHub</a>
       `,
       { status: 200, headers: { "content-type": "text/html" } },
     ),
