@@ -24,14 +24,19 @@ serve({
       return notFound();
     }
     // Handles "stable" version differently
-    const dtsUrl = version === "stable" ? "https://github.com/denoland/deno/releases/latest/download/lib.deno.d.ts" : `https://github.com/denoland/deno/releases/download/${version}/lib.deno.d.ts`
+    const dtsUrl = version === "stable"
+      ? "https://github.com/denoland/deno/releases/latest/download/lib.deno.d.ts"
+      : `https://github.com/denoland/deno/releases/download/${version}/lib.deno.d.ts`;
     const resp = await fetch(dtsUrl);
     if (resp.status !== 200) {
       return notFound();
     }
-    const isBrowser = request.headers.get("accept")?.includes('text/html');
+    const isBrowser = request.headers.get("accept")?.includes("text/html");
     // Responses as plain text to browsers
-    resp.headers.set("content-type", isBrowser ? "text/plain" : "application/typescript; charset=utf-8");
+    resp.headers.set(
+      "content-type",
+      isBrowser ? "text/plain" : "application/typescript; charset=utf-8",
+    );
     // Prevents downloading the file
     resp.headers.delete("content-disposition");
     return resp;
@@ -43,5 +48,5 @@ function notFound(): Response {
   return new Response(`not found<br /><a href="/">Back to Top</a>`, {
     status: 404,
     headers: { "content-type": "text/html" },
-  })
+  });
 }
